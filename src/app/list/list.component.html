@@ -1,0 +1,36 @@
+<!-- search component -->
+
+
+
+<div *ngIf="isLoading else listView">
+    <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="listForm" (ngSubmit)="onFormSubmit()">
+    <mat-selection-list formControlName="selectedListItem">
+        <ng-template #listView>
+            <h3>{{listTitle}}</h3>
+            <mat-list-option *ngFor="let list of listData" [value]="list">
+                <ng-container *ngIf="listTitle === 'Manage Payments'">
+                    <mat-list-item>{{list?.status}}</mat-list-item>
+                </ng-container>
+
+                <ng-container *ngIf="listTitle === 'Manage Countries'">
+                    <mat-list-item>
+                        <img matListItemAvatar [src]="list?.flag" alt={{list?.name}} />
+                        <span matListItemTitle>{{list?.name}} . {{list?.code}}</span>
+                        <span matListItemLine>{{list?.someWeirdServerFieldNameWithCount}}</span>
+                    </mat-list-item>
+                </ng-container>
+
+                <ng-container *ngIf="listTitle === 'Manage Team'">
+                    <mat-list-item>
+                        <div matListItemTitle>{{list?.firstName}} {{list?.lastName}}</div>
+                        <div matListItemLine>{{list?.email}}</div>
+                        <img matListItemAvatar [src]="list?.avatarUrl" alt={{list?.firstName}} />
+                    </mat-list-item>
+                </ng-container>
+            </mat-list-option>
+        </ng-template>
+    </mat-selection-list>
+</form>

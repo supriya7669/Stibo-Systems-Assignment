@@ -1,0 +1,7 @@
+
+<button (click)="countPayments()">count</button>
+<ng-container *ngIf="!!payments">
+    <app-list [listData]="payments" [listTitle]="'Manage Payments'" [isLoading]="isLoading">
+        <!-- <div>{{countFilteredPayments}}</div> -->
+    </app-list>
+</ng-container>
