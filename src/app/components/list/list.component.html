@@ -23,7 +23,7 @@
         <form [formGroup]="listForm">
             <mat-selection-list formControlName="selectedListItem" #selectionList>
                 <ng-template #listView>
-                    <mat-list-option *ngFor="let list of displayData" [value]="list" [checkboxPosition]="'before'"
+                    <mat-list-option *ngFor="let list of displayData; trackBy: trackByFn" [value]="list" [checkboxPosition]="'before'"
                         [color]="'primary'">
 
                         <ng-container *ngIf="listTitle === 'MANAGE PAYMENTS'">

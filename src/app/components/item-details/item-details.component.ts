@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-// import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-item-details',
@@ -13,9 +12,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   providers: [],
 })
 export class ItemDetailsComponent implements OnInit {
-  id: any;
-  data: any;
   selectedItem: any;
+  
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {

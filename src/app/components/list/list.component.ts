@@ -33,7 +33,6 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MatListModule,
-    NgFor,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     FormsModule,
@@ -52,11 +51,10 @@ export class ListComponent implements OnInit, OnChanges {
   @Input() listData: any[] = [];
   @Input() isLoading: boolean = true;
 
-  @Input() color: ThemePalette;
+  @Input() color: ThemePalette | undefined;
   @Input() checkboxPosition: MatListOptionCheckboxPosition = 'before';
 
-  searchText = '';
-  selectedItems: string[] = [];
+  searchText:string = '';
   selectedItem: any;
   filteredItems: any[] = [];
   displayData: any[] = [];
@@ -68,8 +66,7 @@ export class ListComponent implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder, private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.displayData = this.listData;
@@ -115,6 +112,10 @@ export class ListComponent implements OnInit, OnChanges {
   //   const selectedItemId = this.selectedItem ? { id: this.selectedItem?.id } : null;
   //   this.router.navigate(['/item-detail', selectedItemId]);
   // }
+
+  trackByFn(item: any): number {
+    return item.id;
+  }
 
   onFormSubmit() {
     console.log(this.listForm.get('selectedListItem')?.value);

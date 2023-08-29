@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ItemDetailsComponent } from './item-details/item-details.component';
+import { ItemDetailsComponent } from './components/item-details/item-details.component';
 
 export const routes: Routes = [
   {
@@ -10,22 +10,22 @@ export const routes: Routes = [
   {
     path: 'payments',
     loadComponent: () =>
-      import('./payment/payment.component').then((c) => c.PaymentComponent),
+      import('./components/payment/payment.component').then((c) => c.PaymentComponent),
   },
   {
     path: 'countries',
     loadComponent: () =>
-      import('./country/country.component').then((c) => c.CountryComponent),
+      import('./components/country/country.component').then((c) => c.CountryComponent),
   },
   {
     path: 'team',
     loadComponent: () =>
-      import('./team/team.component').then((c) => c.TeamComponent),
+      import('./components/team/team.component').then((c) => c.TeamComponent),
   },
   {
     path: 'item-detail',
     loadComponent: () =>
-      import('./item-details/item-details.component').then(
+      import('./components/item-details/item-details.component').then(
         (c) => c.ItemDetailsComponent
       ),
   },

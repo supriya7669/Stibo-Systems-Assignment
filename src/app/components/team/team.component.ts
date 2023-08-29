@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import { ListComponent } from '../list/list.component';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-team',
@@ -12,21 +13,25 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./team.component.scss'],
 })
 export class TeamComponent implements OnInit, OnDestroy {
-  users = [];
+  users: User[] = [];
   isLoading: boolean = false;
-  subscription: Subscription = new Subscription;
+  subscription: Subscription = new Subscription();
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.isLoading= true;
-    this.dataService.fetchData('users').subscribe((response: any) => {
-      this.users = response;
-      this.isLoading = false;
-    });
+    this.isLoading = true;
+    this.subscription = this.dataService
+      .fetchData<User>('users')
+      .subscribe((response: User[]) => {
+        this.users = response;
+        this.isLoading = false;
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import { ListComponent } from '../list/list.component';
 import { Subscription } from 'rxjs';
+import { ModifiedPayment, Payment } from 'src/app/models/payment.model';
 
 @Component({
   selector: 'app-payment',
@@ -12,8 +13,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  payments: any = [];
-  modifiedPayments: any = [];
+  payments: Payment[] = [];
+  modifiedPayments: ModifiedPayment[] = [];
   isLoading: boolean = false;
 
   subscription: Subscription = new Subscription();
@@ -23,8 +24,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
-      .fetchData('payments')
-      .subscribe((response: any) => {
+      .fetchData<Payment>('payments')
+      .subscribe((response: Payment[]) => {
         this.payments = response;
         this.isLoading = false;
         this.addPaymentsCount();
@@ -32,28 +33,26 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   addPaymentsCount() {
-    const countPayments: any = {};
-    this.payments.forEach((payment: any) => {
+    const countPayments: { [status: string]: number } = {};
+    this.payments.forEach((payment: Payment) => {
       const status = payment.status;
 
-      if (countPayments[status]) {
-        countPayments[status]++;
-      } else {
-        countPayments[status] = 1;
-      }
+      countPayments[status]
+        ? countPayments[status]++
+        : (countPayments[status] = 1);
     });
 
-    // console.log('countPayments', countPayments);
-
-    this.modifiedPayments = Object.keys(countPayments).map((status) => ({
-      status,
-      count: countPayments[status],
-    }));
-
-    // console.log('modifiedPayments', this.modifiedPayments);
+    this.modifiedPayments = Object.keys(countPayments).map(
+      (status: string) => ({
+        status,
+        count: countPayments[status],
+      })
+    );
   }
 }

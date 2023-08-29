@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import { ListComponent } from '../list/list.component';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
 
 @Component({
   selector: 'app-country',
@@ -12,21 +13,25 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./country.component.scss'],
 })
 export class CountryComponent implements OnInit, OnDestroy {
-  countries = [];
+  countries: Country[] = [];
   isLoading: boolean = false;
   subscription: Subscription = new Subscription();
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.isLoading= true;
-    this.dataService.fetchData('countries').subscribe((response: any) => {
-      this.countries = response;
-      this.isLoading = false;
-    });
+    this.isLoading = true;
+    this.subscription = this.dataService
+      .fetchData<Country>('countries')
+      .subscribe((response: Country[]) => {
+        this.countries = response;
+        this.isLoading = false;
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
