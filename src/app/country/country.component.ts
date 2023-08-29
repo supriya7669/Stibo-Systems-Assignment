@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ListComponent],
   templateUrl: './country.component.html',
-  styleUrls: ['./country.component.sass'],
+  styleUrls: ['./country.component.scss'],
 })
 export class CountryComponent implements OnInit, OnDestroy {
   countries = [];

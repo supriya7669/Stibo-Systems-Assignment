@@ -1,1 +1,14 @@
-<p>item-details works!</p>
+<div *ngIf="this.selectedItem?.id; else payment">
+    <mat-card class="item-card">
+        <img mat-card-image class="item-img" [src]="this.selectedItem.flag || this.selectedItem.avatarUrl" />
+        <span mat-card-content class="item-name">{{this.selectedItem?.name }} {{
+            this.selectedItem?.firstName}}{{this.selectedItem?.lastName}}
+        </span>
+    </mat-card>
+</div>
+
+<ng-template #payment>
+    <mat-card>
+        <mat-card-title>{{this.selectedItem?.status}}</mat-card-title>
+    </mat-card>
+</ng-template>

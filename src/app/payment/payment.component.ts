@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ListComponent],
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.sass'],
+  styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
   payments: any = [];
-  countFilteredPayments: any = [];
+  modifiedPayments: any = [];
   isLoading: boolean = false;
 
   subscription: Subscription = new Subscription();
@@ -27,6 +27,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         this.payments = response;
         this.isLoading = false;
+        this.addPaymentsCount();
       });
   }
 
@@ -34,19 +35,25 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  countPayments() {
-    const count: any = {};
+  addPaymentsCount() {
+    const countPayments: any = {};
     this.payments.forEach((payment: any) => {
       const status = payment.status;
 
-      if (count[status]) {
-        count[status]++;
+      if (countPayments[status]) {
+        countPayments[status]++;
       } else {
-        count[status] = 1;
+        countPayments[status] = 1;
       }
     });
 
-    console.log('count', count);
-    this.countFilteredPayments = count;
+    // console.log('countPayments', countPayments);
+
+    this.modifiedPayments = Object.keys(countPayments).map((status) => ({
+      status,
+      count: countPayments[status],
+    }));
+
+    // console.log('modifiedPayments', this.modifiedPayments);
   }
 }

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ListComponent],
   templateUrl: './team.component.html',
-  styleUrls: ['./team.component.sass'],
+  styleUrls: ['./team.component.scss'],
 })
 export class TeamComponent implements OnInit, OnDestroy {
   users = [];

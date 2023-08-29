@@ -1,0 +1,75 @@
+@import "../../styles.scss";
+
+.list-card {
+    margin: 0 auto;
+    width: 50%;
+    border: 2px solid $lightGray;
+
+    .card-heading {
+        color: $darkViolet;
+        margin: 20px 0;
+    }
+
+    .list-card-content {
+        height: 300px;
+        overflow: auto;
+
+        .searchBar {
+            width: 100%;
+        }
+    }
+
+    mat-list-item {
+
+        .imgAvatar {
+            width: 40px;
+            border-radius: 50%;
+            padding-right: 5px;
+        }
+    }
+
+    .user-email {
+        color: $darkGray;
+    }
+}
+
+mat-list-option {
+    height: 2px;
+    margin: 0;
+}
+
+mat-list-option-selected {
+    background-color: violet;
+}
+
+// mat-list-option.mat-list-option {
+//     background-color: #f0f0f0;
+//     color: $violet;
+//     font-weight: bold;
+// }
+
+// mat-list-option.mat-list-option-selected{
+//     background-color: #FFD700 !important;
+//     color: #fff !important;
+// }
+
+mat-label {
+    color: $darkViolet;
+}
+
+.user_img {
+    width: 50px;
+    border-radius: 50%;
+    float: right;
+}
+
+.continue-button {
+    background-color: $violet;
+    color: $lavender;
+    margin: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 20%;
+    cursor: pointer;
+}

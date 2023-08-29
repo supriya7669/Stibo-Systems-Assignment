@@ -1,0 +1,22 @@
+@import "../../styles.scss";
+
+mat-card{
+    margin: 0 auto;
+    width: 50%;
+    background-color: $lavender;
+    color: $violet;
+    padding: 20px;
+    // display: flex;
+
+    .item-img{
+        // float: left;
+        width: 100px;
+        border-radius: 50%;
+        border: 1px solid $orchid;
+    }
+
+    .item-name{
+        // float: right;
+        font-size: 20px;
+    }
+}

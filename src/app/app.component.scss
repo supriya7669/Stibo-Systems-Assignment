@@ -1,0 +1,10 @@
+@import "../styles.scss";
+
+mat-toolbar{
+    background-color: $violet;
+    color: $lavender;
+}
+
+.active {
+    border: 2px solid $lavender;
+}

@@ -1,13 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+// import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-item-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.sass']
+  styleUrls: ['./item-details.component.scss'],
+  providers: [],
 })
-export class ItemDetailsComponent {
+export class ItemDetailsComponent implements OnInit {
+  id: any;
+  data: any;
+  selectedItem: any;
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((param) => {
+      const data = param['item'];
+      this.selectedItem = JSON.parse(data);
+      // console.log('data on receiver: ', this.selectedItem);
+    });
+  }
 
 }
