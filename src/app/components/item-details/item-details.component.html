@@ -1,14 +1,22 @@
 <div *ngIf="this.selectedItem && this.selectedItem?.id; else payment">
     <mat-card class="item-card">
+        <mat-card-subtitle>The selected item is</mat-card-subtitle>
         <img mat-card-image class="item-img" [src]="this.selectedItem?.flag || this.selectedItem?.avatarUrl" />
         <span mat-card-content class="item-name">{{this.selectedItem?.name }} {{
             this.selectedItem?.firstName}}{{this.selectedItem?.lastName}}
         </span>
+        <mat-card-footer>Please click on other navigation link to see the payments, countries or
+            users.
+        </mat-card-footer>
     </mat-card>
 </div>
 
 <ng-template #payment>
     <mat-card>
-        <mat-card-title>{{this.selectedItem?.status}}</mat-card-title>
+        <mat-card-subtitle>The selected item is</mat-card-subtitle>
+        <mat-card-content class="item-name">{{this.selectedItem?.status}}</mat-card-content>
+        <mat-card-footer>Please click on other navigation link to see the payments, countries or
+            users.
+        </mat-card-footer>
     </mat-card>
 </ng-template>

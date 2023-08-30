@@ -1,31 +1,17 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   MatListModule,
   MatListOptionCheckboxPosition,
-  MatSelectionListChange,
 } from '@angular/material/list';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ThemePalette } from '@angular/material/core';
 import { Router, RouterModule } from '@angular/router';
+import { listItems } from 'src/app/models/listItems.model';
 
 @Component({
   selector: 'app-list',
@@ -33,10 +19,8 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MatListModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
     FormsModule,
-    MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatInputModule,
     MatCardModule,
     MatIconModule,
@@ -48,34 +32,30 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class ListComponent implements OnInit, OnChanges {
   @Input() listTitle: string = '';
-  @Input() listData: any[] = [];
+  @Input() listItems: any[] = [];
   @Input() isLoading: boolean = true;
 
   @Input() color: ThemePalette | undefined;
   @Input() checkboxPosition: MatListOptionCheckboxPosition = 'before';
 
-  searchText:string = '';
+  searchText: string = '';
   selectedItem: any;
-  filteredItems: any[] = [];
-  displayData: any[] = [];
-  searchField = ['status', 'name', 'firstName'];
+  filteredItems: listItems[] = [];
+  displayItems: any[] = [];
+  searchFields = ['status', 'name', 'firstName'];
 
-  listForm = this.fb.group({
-    selectedListItem: '',
-  });
-
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.displayData = this.listData;
+  ngOnChanges(): void {
+    this.displayItems = this.listItems;
   }
 
   filterItems() {
     if (this.searchText) {
-      this.filteredItems = this.listData.filter((item) => {
-        return this.searchField.some((field) => {
+      this.filteredItems = this.listItems.filter((item) => {
+        return this.searchFields.some((field) => {
           if (item[field]) {
             return item[field]
               .toString()
@@ -86,20 +66,18 @@ export class ListComponent implements OnInit, OnChanges {
         });
       });
     } else {
-      this.filteredItems = this.listData;
+      this.filteredItems = this.listItems;
     }
-    // console.log('filteredItems', this.filteredItems);
-    this.displayData = this.filteredItems;
+    this.displayItems = this.filteredItems;
   }
 
   getSelectedValue(selectionList: any) {
     this.selectedItem = selectionList.selectedOptions.selected[0]?.value;
-    // console.log('Selected Item value: ', this.selectedItem);
     this.routeToItemDetails();
   }
 
   routeToItemDetails() {
-    const selectedItemId: any = this.selectedItem
+    const selectedItemId: number = this.selectedItem
       ? this.selectedItem?.id
       : null;
     const wholeSelectedItem = encodeURIComponent(
@@ -115,9 +93,5 @@ export class ListComponent implements OnInit, OnChanges {
 
   trackByFn(item: any): number {
     return item.id;
-  }
-
-  onFormSubmit() {
-    console.log(this.listForm.get('selectedListItem')?.value);
   }
 }

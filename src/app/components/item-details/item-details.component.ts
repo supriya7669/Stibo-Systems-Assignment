@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-item-details',
@@ -13,15 +13,13 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ItemDetailsComponent implements OnInit {
   selectedItem: any;
-  
+
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((param) => {
+    this.activatedRoute.queryParams.subscribe((param: Params) => {
       const data = param['item'];
       this.selectedItem = JSON.parse(data);
-      // console.log('data on receiver: ', this.selectedItem);
     });
   }
-
 }

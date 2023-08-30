@@ -1,4 +1,4 @@
-<ng-container *ngIf="!!payments">
-    <app-list [listData]="modifiedPayments" [listTitle]="'MANAGE PAYMENTS'" [isLoading]="isLoading">
+<ng-container *ngIf="payments">
+    <app-list [listItems]="modifiedPayments" [listTitle]="'MANAGE PAYMENTS'" [isLoading]="isLoading">
     </app-list>
 </ng-container>
