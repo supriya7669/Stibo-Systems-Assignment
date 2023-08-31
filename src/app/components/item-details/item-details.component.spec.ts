@@ -18,10 +18,4 @@ describe('ItemDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  xit('should call ngOnInit method', () => {
-    spyOn(component, 'ngOnInit').and.callThrough();
-    component.ngOnInit();
-    expect(component.ngOnInit).toHaveBeenCalled();
-  });
 });

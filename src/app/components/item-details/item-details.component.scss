@@ -7,20 +7,23 @@ mat-card {
     color: $violet;
     padding: 20px;
 
-    mat-card-subtitle {
-        background-color: $lavender;
-        color: $violet;
-        padding-bottom: 40px;
+    mat-card-content{
+        display: flex;
     }
-
     .item-img {
-        width: 100px;
-        border-radius: 50%;
+        width: 60px;
+        height: 60px;
         border: 1px solid $orchid;
+        margin-right: 20px;
     }
 
-    .item-name {
+    .selected-item {
+        margin-top: 5px;
         font-size: 20px;
+
+        .item-name {
+            font-weight: bolder;
+        }
     }
 
     mat-card-footer {

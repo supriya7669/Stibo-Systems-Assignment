@@ -6,22 +6,25 @@
     <mat-card-content class="list-card-content">
         <mat-form-field class="searchBar">
             <mat-icon matPrefix mat-icon-button>search</mat-icon>
-            <input class="searchInput" matInput [(ngModel)]="searchText" (input)="filterItems()">
+            <input class="searchInput" matInput placeholder="Search" [(ngModel)]="searchText" (input)="filterItems()">
+            <button class="search-btn" matSuffix *ngIf="searchText" (click)="searchText='';filterItems()">
+                <mat-icon mat-icon-button>close</mat-icon>
+            </button>
 
         </mat-form-field>
 
         <div *ngIf="isLoading else listView">
             <mat-spinner></mat-spinner>
         </div>
-        <mat-selection-list #selectionList>
+        <mat-selection-list #selectionList class="selection-list">
             <ng-template #listView>
                 <mat-list-option *ngFor="let list of displayItems; trackBy: trackByFn" [value]="list"
                     [checkboxPosition]="'before'" [color]="'primary'">
 
                     <ng-container *ngIf="listTitle === 'MANAGE PAYMENTS'">
                         <mat-list-item>
-                            <div style="float: left;">{{list?.status}}</div>
-                            <div style="float: right;">{{list?.count}}</div>
+                            <div class="payment-status">{{list?.status}}</div>
+                            <div class="payment-count">{{list?.count}}</div>
                         </mat-list-item>
                     </ng-container>
 
@@ -29,11 +32,11 @@
                         <mat-list-item>
                             <div style="float: left; display: flex;">
                                 <img matListItemAvatar class="imgAvatar" [src]="list?.flag" alt={{list?.name}} />
-                                <span matListItemTitle>{{list?.name}} . {{list?.code}}</span>
+                                <span class="list-name" matListItemTitle>{{list?.name}} . {{list?.code}}</span>
                             </div>
 
                             <div style="float: right;">
-                                <div matListItemLine>{{list?.someWeirdServerFieldNameWithCount}}</div>
+                                <div matListItemLine class="country-count">{{list?.someWeirdServerFieldNameWithCount}}</div>
                             </div>
 
                         </mat-list-item>

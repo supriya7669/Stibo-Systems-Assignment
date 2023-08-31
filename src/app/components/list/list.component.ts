@@ -47,10 +47,18 @@ export class ListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
+  /**
+   * @description passing listItems of payment/country/users to displayItems
+   * @memberof ListComponent
+   */
   ngOnChanges(): void {
     this.displayItems = this.listItems;
   }
 
+  /**
+   * @description filtering list items based on search text
+   * @memberof ListComponent
+   */
   filterItems() {
     if (this.searchText) {
       this.filteredItems = this.listItems.filter((item) => {
@@ -70,11 +78,19 @@ export class ListComponent implements OnInit, OnChanges {
     this.displayItems = this.filteredItems;
   }
 
+  /**
+   * @description selecting items of list by clicking on checkbox
+   * @memberof ListComponent
+   */
   getSelectedValue(selectionList: any) {
     this.selectedItem = selectionList.selectedOptions.selected[0]?.value;
     this.routeToItemDetails();
   }
 
+  /**
+   * @description routing to user-detail component with the selected item
+   * @memberof ListComponent
+   */
   routeToItemDetails() {
     const selectedItemId: number = this.selectedItem
       ? this.selectedItem?.id
@@ -85,11 +101,21 @@ export class ListComponent implements OnInit, OnChanges {
     window.location.href = `/item-detail?id=${selectedItemId}&item=${wholeSelectedItem}`;
   }
 
-  // routeToItemDetails() { // router.navigate not working with standalone components
+  /**
+   * @description router.navigate() not working with standalone components hence used window location
+   * to route to other component (routeToItemDetails function)
+   * more R&D required to use Router with standalone components
+   * @memberof ListComponent
+   */
+  // routeToItemDetails() {
   //   const selectedItemId = this.selectedItem ? { id: this.selectedItem?.id } : null;
-  //   this.router.navigate(['/item-detail', selectedItemId]);
+  // this.router.navigate(['/item-detail', this.selectedItem.id], { state: { selectedItem: this.selectedItem } });
   // }
 
+  /**
+   * @description improve the performance and efficiency of rendering lists using *ngFor
+   * @memberof ListComponent
+   */
   trackByFn(item: any): number {
     return item.id;
   }

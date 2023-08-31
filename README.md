@@ -1,52 +1,35 @@
-Goal of this task is to create a reusable list component with three different types of data and items. Data structure is available in endpoints:
+### Prerequisites
 
-* `/users` - returns flat array of all users.
+- Node.js and npm
 
-* `/payments` - returns flat array of all payments
+Node: 18.17.1
+Package Manager: npm 6.14.18
 
-* `/countries` - returns flat array of all countries
+### Angular version
 
+- This application was generated using Angular CLI
+Angular CLI: 16.2.0
 
-Application at main page should allow to navigate to three views `users` `payments` and `countries` and see three lists.
+- All the components in the application are 'STANDALONE COMPONENTS' and do not required ngModule.
+- Routing between components is achieved by window.location because Router Module have some issues with STANDALONE COMPONENTS and hence, router.navigate() was throwing some errors and need some time to
+  R&D.
+- However, the route params was accessed by using Angular's Activated Route service which is working fine with STANDALONE COMPONENTS.
 
-* Lists should be able to share common functionalities like selecting items, searching etc.
+### Installation
 
-* Lists should be able to share common styles.
+- Clone the repository
+- Navigate to the project directory
+- Install dependencies using "npm install"
 
-* Lists should be able to display different items for different data types.
+### Run project
 
-* It should be possible to easily add new data type and create another list.
+- Run the application using 'ng serve -o'
 
-Bonus features:
+### Testing
 
-* It should be possible to search item and filter list. In case of payments, we should be able to search by type, there's no need to search by specific payment fields.
+- This project uses Karma as the test runner and Jasmine as the testing framework.
+- Use "ng test --code-coverage" to run the test and generate code coverage.
 
-* Add item details view with single list item.
-    * `/users/:id` - returns single user
-    * `/countries/:id` - returns single country
+### Styling
 
-* Handle empty dataset.
-
-* Show spinner when there is waiting period for API response.
-
-* Some example unit tests.
-
-
-What we pay attention to:
-
-* General structure of application, components, etc.
-
-* Strict usage of Typescript. Using setting `compilerOptions -> strict: true` in `tsconfig.json` is a plus.
-
-* Performance - component should run smoothly. Number of values to pick is around 10k, single node may have 1k children.
-
-* API usage - calls should be limited to minimum.
-
-* Using standalone architecture, avoiding ngModules
-
-
-We advise to use Angular Material as UI library to minimize effort in layout styling. It does not have to be pixel perfect, wireframe is just a suggestion.
-
-API with data should be run locally using json-server https://www.npmjs.com/package/json-server
-
-Please fork the project to your own bitbucket, github, or other git hosting account, and give us access to the repository holding your solution.
+- SCSS is used for styling the elements

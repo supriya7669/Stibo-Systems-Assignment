@@ -19,6 +19,10 @@ export class TeamComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService) {}
 
+  /**
+   * @description fetching users list
+   * @memberof TeamComponent
+   */
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
@@ -37,6 +41,10 @@ export class TeamComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @description unsubscribe the subscribptions
+   * @memberof TeamComponent
+   */
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

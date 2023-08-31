@@ -19,6 +19,10 @@ export class CountryComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService) {}
 
+  /**
+   * @description fetching country list
+   * @memberof CountryComponent
+   */
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
@@ -38,7 +42,7 @@ export class CountryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * unsubscribes all subsription
+   * @description unsubscribe the subscribptions
    * @memberof CountryComponent
    */
   ngOnDestroy(): void {

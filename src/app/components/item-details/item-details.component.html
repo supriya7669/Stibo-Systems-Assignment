@@ -1,22 +1,22 @@
-<div *ngIf="this.selectedItem && this.selectedItem?.id; else payment">
-    <mat-card class="item-card">
-        <mat-card-subtitle>The selected item is</mat-card-subtitle>
-        <img mat-card-image class="item-img" [src]="this.selectedItem?.flag || this.selectedItem?.avatarUrl" />
-        <span mat-card-content class="item-name">{{this.selectedItem?.name }} {{
-            this.selectedItem?.firstName}}{{this.selectedItem?.lastName}}
-        </span>
-        <mat-card-footer>Please click on other navigation link to see the payments, countries or
-            users.
-        </mat-card-footer>
-    </mat-card>
-</div>
+<mat-card class="item-card">
+    <div *ngIf="this.selectedItem && this.selectedItem?.id; else payment">
+        <mat-card-content>
+            <img mat-card-image class="item-img" [src]="this.selectedItem?.flag || this.selectedItem?.avatarUrl" />
+            <p class="selected-item">You have successfully selected <span class="item-name">{{this.selectedItem?.name }}
+                    {{this.selectedItem?.firstName}}{{this.selectedItem?.lastName}}
+                </span>
+            </p>
+        </mat-card-content>
+    </div>
+
+    <mat-card-footer>Please click on other navigation links to select payments, countries or
+        teams.
+    </mat-card-footer>
+</mat-card>
+
 
 <ng-template #payment>
-    <mat-card>
-        <mat-card-subtitle>The selected item is</mat-card-subtitle>
-        <mat-card-content class="item-name">{{this.selectedItem?.status}}</mat-card-content>
-        <mat-card-footer>Please click on other navigation link to see the payments, countries or
-            users.
-        </mat-card-footer>
-    </mat-card>
+    <mat-card-content>
+        <p class="selected-item">You have successfully selected <span class="item-name">{{this.selectedItem?.status}}</span></p>
+    </mat-card-content>
 </ng-template>

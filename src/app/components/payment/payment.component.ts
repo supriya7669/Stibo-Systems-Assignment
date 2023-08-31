@@ -20,6 +20,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService) {}
 
+  /**
+   * @description fetching payments list
+   * @memberof PaymentComponent
+   */
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
@@ -39,6 +43,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @description adding count based on status of payments and
+   * creating modified payments list with status and count
+   * @memberof PaymentComponent
+   */
   addPaymentsCount() {
     const countPayments: { [status: string]: number } = {};
     this.payments.forEach((payment: IPayment) => {
@@ -57,6 +66,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * @description unsubscribe the subscribptions
+   * @memberof PaymentComponent
+   */
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
