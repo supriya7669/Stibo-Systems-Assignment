@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CountryComponent } from './country.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataService } from 'src/app/services/data.service';
+import { of } from 'rxjs';
 
 describe('CountryComponent', () => {
   let component: CountryComponent;
@@ -11,7 +12,11 @@ describe('CountryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CountryComponent,HttpClientTestingModule, BrowserAnimationsModule],
+      imports: [
+        CountryComponent,
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+      ],
       providers: [DataService],
     });
     fixture = TestBed.createComponent(CountryComponent);
@@ -35,5 +40,4 @@ describe('CountryComponent', () => {
     component.ngOnInit();
     expect(dataService.fetchData).toHaveBeenCalled();
   });
-
 });
