@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { ListComponent } from '../list/list.component';
 import { Subscription } from 'rxjs';
-import { ModifiedPayment, Payment } from 'src/app/models/payment.model';
+import { IModifiedPayment, IPayment } from 'src/app/models/payment.model';
 
 @Component({
   selector: 'app-payment',
@@ -13,34 +13,35 @@ import { ModifiedPayment, Payment } from 'src/app/models/payment.model';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit, OnDestroy {
-  payments: Payment[] = [];
-  modifiedPayments: ModifiedPayment[] = [];
+  payments: IPayment[] = [];
+  modifiedPayments: IModifiedPayment[] = [];
   isLoading: boolean = false;
-
-  subscription: Subscription = new Subscription();
+  subscription: Subscription | null = null;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
-      .fetchData<Payment>('payments')
-      .subscribe((response: Payment[]) => {
-        this.payments = response;
-        this.isLoading = false;
-        this.addPaymentsCount();
+      .fetchData<IPayment>('payments')
+      .subscribe({
+        next: (response: IPayment[]) => {
+          if (response) {
+            this.payments = response;
+            this.isLoading = false;
+            this.addPaymentsCount();
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+          this.isLoading = false;
+        },
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 
   addPaymentsCount() {
     const countPayments: { [status: string]: number } = {};
-    this.payments.forEach((payment: Payment) => {
+    this.payments.forEach((payment: IPayment) => {
       const status = payment.status;
 
       countPayments[status]
@@ -54,5 +55,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
         count: countPayments[status],
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

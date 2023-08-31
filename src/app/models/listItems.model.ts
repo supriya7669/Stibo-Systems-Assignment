@@ -1,10 +1,10 @@
-import { Country } from './country.model';
-import { ModifiedPayment, Payment } from './payment.model';
-import { User } from './user.model';
+import { ICountry } from './country.model';
+import { IModifiedPayment, IPayment } from './payment.model';
+import { IUser } from './user.model';
 
-export interface listItems {
-  payment?: Payment[];
-  country?: Country[];
-  user?: User[];
-  modifiedPayment?: ModifiedPayment[];
+export interface IListItems {
+  payment?: IPayment[];
+  country?: ICountry[];
+  user?: IUser[];
+  modifiedPayment?: IModifiedPayment[];
 }

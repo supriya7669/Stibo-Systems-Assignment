@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ThemePalette } from '@angular/material/core';
 import { Router, RouterModule } from '@angular/router';
-import { listItems } from 'src/app/models/listItems.model';
+import { IListItems } from 'src/app/models/listItems.model';
 
 @Component({
   selector: 'app-list',
@@ -34,13 +34,12 @@ export class ListComponent implements OnInit, OnChanges {
   @Input() listTitle: string = '';
   @Input() listItems: any[] = [];
   @Input() isLoading: boolean = true;
-
   @Input() color: ThemePalette | undefined;
   @Input() checkboxPosition: MatListOptionCheckboxPosition = 'before';
 
   searchText: string = '';
   selectedItem: any;
-  filteredItems: listItems[] = [];
+  filteredItems: IListItems[] = [];
   displayItems: any[] = [];
   searchFields = ['status', 'name', 'firstName'];
 

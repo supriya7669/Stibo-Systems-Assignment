@@ -1,4 +1,4 @@
-export interface Payment {
+export interface IPayment {
   id: string;
   internalFieldA: string;
   receiver: string;
@@ -6,7 +6,7 @@ export interface Payment {
   xYZRandomField: string;
 }
 
-export interface ModifiedPayment {
+export interface IModifiedPayment {
   status: string;
   count: number;
 }

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from "@angular/router/testing";
 import { ItemDetailsComponent } from './item-details.component';
 
 describe('ItemDetailsComponent', () => {
@@ -8,7 +8,7 @@ describe('ItemDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ItemDetailsComponent]
+      imports: [ItemDetailsComponent, RouterTestingModule]
     });
     fixture = TestBed.createComponent(ItemDetailsComponent);
     component = fixture.componentInstance;
@@ -17,5 +17,11 @@ describe('ItemDetailsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  xit('should call ngOnInit method', () => {
+    spyOn(component, 'ngOnInit').and.callThrough();
+    component.ngOnInit();
+    expect(component.ngOnInit).toHaveBeenCalled();
   });
 });

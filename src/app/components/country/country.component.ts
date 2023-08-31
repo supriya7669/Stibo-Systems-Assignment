@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { ListComponent } from '../list/list.component';
 import { Subscription } from 'rxjs';
-import { Country } from 'src/app/models/country.model';
+import { ICountry } from 'src/app/models/country.model';
 
 @Component({
   selector: 'app-country',
@@ -13,22 +13,34 @@ import { Country } from 'src/app/models/country.model';
   styleUrls: ['./country.component.scss'],
 })
 export class CountryComponent implements OnInit, OnDestroy {
-  countries: Country[] = [];
+  countries: ICountry[] = [];
   isLoading: boolean = false;
-  subscription: Subscription = new Subscription();
+  subscription: Subscription | null = null;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.isLoading = true;
     this.subscription = this.dataService
-      .fetchData<Country>('countries')
-      .subscribe((response: Country[]) => {
-        this.countries = response;
-        this.isLoading = false;
+      .fetchData<ICountry>('countries')
+      .subscribe({
+        next: (response: ICountry[]) => {
+          if (response) {
+            this.countries = response;
+            this.isLoading = false;
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching data:', error);
+          this.isLoading = false;
+        },
       });
   }
 
+  /**
+   * unsubscribes all subsription
+   * @memberof CountryComponent
+   */
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
